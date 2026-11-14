@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+  HOW TO USE THIS PAGE
+  Adding a page to a module:
+    1. Upload the file (a slide deck .html, or any other file) to this repository: Add file > Upload files > Commit changes.
+    2. Edit this file. Copy one <li>...</li> block, paste it inside the module where you want it, and change:
+       - href="..."  to the file name exactly as it appears in the repository (or a full web address for an outside link)
+       - the kind (Slides, Reading, Activity, Handout, Video, and so on)
+       - the title and the one-line description
+  Adding a module:
+    1. Copy a whole <section>...</section> block and paste it below the last module.
+    2. Give it a new id (for example id="m5") in both the <section aria-labelledby="..."> and the <h2 id="...">.
+    3. Add a matching link to the "Jump to a module" list at the top.
+  Deleting: remove the <li> or <section> block, and the matching link in the list at the top.
+  Commit your changes. The page updates after a few minutes.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Resources</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#13294B;--red:#C8102E;--ink:#1A1A1A;--mute:#4b5565;--line:#c9ced8}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font:400 1.125rem/1.55 Roboto,Calibri,Arial,sans-serif}
+main{max-width:46rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+h1{font:700 clamp(1.75rem,5vw,2.4rem)/1.2 Merriweather,Georgia,serif;color:var(--navy);margin:0 0 .5rem}
+.intro{color:var(--mute);margin:0 0 1.75rem}
+nav h2{font:500 1rem/1.4 Roboto,Calibri,Arial,sans-serif;color:var(--mute);margin:0 0 .4rem;padding:0;border:0}
+nav ul{display:flex;flex-wrap:wrap;gap:.4rem .5rem}
+nav li{border:0}nav li:first-child{border:0}
+nav a{display:inline-block;padding:.35rem .8rem;border:1.5px solid var(--navy);border-radius:2rem;color:var(--navy);text-decoration:none;font-weight:500;font-size:1rem}
+nav a:hover{background:var(--navy);color:#fff}
+h2{font:700 1.3rem/1.3 Merriweather,Georgia,serif;color:var(--navy);margin:2.75rem 0 .75rem;padding-left:.8rem;border-left:5px solid var(--red)}
+ul{list-style:none;margin:0;padding:0}
+li{border-bottom:1px solid var(--line)}
+li:first-child{border-top:1px solid var(--line)}
+li a{display:block;padding:.9rem .25rem;color:var(--ink);text-decoration:none}
+li a:hover .t{text-decoration-thickness:2px}
+.t{display:block;font-weight:500;color:var(--navy);text-decoration:underline;text-underline-offset:3px}
+.d{display:block;color:var(--mute);font-size:1rem}
+.k{font-weight:500;color:var(--ink)}
+a:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.tips{margin-top:3rem;color:var(--mute);font-size:1rem}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Course Resources</h1>
+  <p class="intro">[Course number and title], [term]. Materials are organized by module.</p>
+
+  <nav aria-label="Modules">
+    <h2>Jump to a module</h2>
+    <ul>
+      <li><a href="#m1">Module 1</a></li>
+      <li><a href="#m2">Module 2</a></li>
+      <li><a href="#m3">Module 3</a></li>
+      <li><a href="#m4">Module 4</a></li>
+    </ul>
+  </nav>
+
+  <section aria-labelledby="m1">
+    <h2 id="m1">Module 1: [Module title]</h2>
+    <ul>
+      <li><a href="module-1-slides.html"><span class="t">[Title of the slide deck]</span><span class="d"><span class="k">Slides.</span> One line on what students will find in it.</span></a></li>
+      <li><a href="module-1-reading.html"><span class="t">[Title of the reading or quote activity]</span><span class="d"><span class="k">Reading.</span> One line on what to do with it.</span></a></li>
+      <li><a href="module-1-activity.html"><span class="t">[Title of the activity]</span><span class="d"><span class="k">Activity.</span> One line on what students will do.</span></a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="m2">
+    <h2 id="m2">Module 2: [Module title]</h2>
+    <ul>
+      <li><a href="module-2-slides.html"><span class="t">[Title of the slide deck]</span><span class="d"><span class="k">Slides.</span> One line on what students will find in it.</span></a></li>
+      <li><a href="module-2-reading.html"><span class="t">[Title of the reading or quote activity]</span><span class="d"><span class="k">Reading.</span> One line on what to do with it.</span></a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="m3">
+    <h2 id="m3">Module 3: [Module title]</h2>
+    <ul>
+      <li><a href="module-3-slides.html"><span class="t">[Title of the slide deck]</span><span class="d"><span class="k">Slides.</span> One line on what students will find in it.</span></a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="m4">
+    <h2 id="m4">Module 4: [Module title]</h2>
+    <ul>
+      <li><a href="module-4-slides.html"><span class="t">[Title of the slide deck]</span><span class="d"><span class="k">Slides.</span> One line on what students will find in it.</span></a></li>
+    </ul>
+  </section>
+
+  <p class="tips">Tips for slide decks: use the arrow keys or the on-screen arrows to move between slides, press M for the menu, and press F for full screen. On a phone, open the menu and choose Study view to read every slide on one page.</p>
+</main>
+</body>
+</html>
