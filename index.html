@@ -1,18 +1,18 @@
+---
+---
 <!DOCTYPE html>
 <!--
   HOW TO USE THIS PAGE
-  Adding a page to a module:
-    1. Upload the file (a slide deck .html, or any other file) to this repository: Add file > Upload files > Commit changes.
-    2. Edit this file. Copy one <li>...</li> block, paste it inside the module where you want it, and change:
-       - href="..."  to the file name exactly as it appears in the repository (or a full web address for an outside link)
-       - the kind (Slides, Reading, Activity, Handout, Video, and so on)
-       - the title and the one-line description
-  Adding a module:
-    1. Copy a whole <section>...</section> block and paste it below the last module.
-    2. Give it a new id (for example id="m5") in both the <section aria-labelledby="..."> and the <h2 id="...">.
-    3. Add a matching link to the "Jump to a module" list at the top.
-  Deleting: remove the <li> or <section> block, and the matching link in the list at the top.
-  Commit your changes. The page updates after a few minutes.
+  New pages: upload any .html file to this repository (Add file > Upload files > Commit changes). It appears
+  automatically under "Not yet sorted" at the bottom of this page, with its file name shown.
+  Sorting a page into a module:
+    1. Copy one <li>...</li> block inside a module below and paste it where you want it.
+    2. Change href="..." to the file name shown in the "Not yet sorted" list, the kind (Slides, Reading, Activity, ...),
+       the title, and the one-line description.
+    3. Commit. Once the page is linked in a module, it leaves "Not yet sorted" by itself.
+  Adding a module: copy a whole <section>...</section> block in the modules area, give it a new id (for example m5) in both
+  aria-labelledby and the <h2 id>, and add a matching link to the "Jump to a module" list at the top.
+  Deleting: remove the <li> or <section> block (and the matching jump link). Do not edit the part marked AUTOMATIC.
 -->
 <html lang="en">
 <head>
@@ -42,6 +42,7 @@ li a:hover .t{text-decoration-thickness:2px}
 .d{display:block;color:var(--mute);font-size:1rem}
 .k{font-weight:500;color:var(--ink)}
 a:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+code{font:500 .9em Consolas,Menlo,monospace;color:var(--ink)}
 .tips{margin-top:3rem;color:var(--mute);font-size:1rem}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
@@ -62,6 +63,7 @@ html{scroll-behavior:smooth}
     </ul>
   </nav>
 
+  <div id="modules">
   <section aria-labelledby="m1">
     <h2 id="m1">Module 1: [Module title]</h2>
     <ul>
@@ -93,6 +95,36 @@ html{scroll-behavior:smooth}
     </ul>
   </section>
 
+  </div>
+
+  <!-- AUTOMATIC: lists every .html file in the repository. Do not edit this section. -->
+  <section aria-labelledby="unsorted" id="unsorted-sec">
+    <h2 id="unsorted">Not yet sorted</h2>
+    <p class="intro">New pages appear here automatically. Add a link to one inside a module above, and it will leave this list.</p>
+    <ul id="unsorted-list">
+{% assign files = site.static_files | sort: 'name' %}{% for file in files %}{% if file.extname == '.html' and file.name != 'index.html' and file.name != '404.html' %}      <li><a href="{{ file.path | remove_first: '/' }}"><span class="t">{{ file.name | remove: file.extname | replace: '-', ' ' | replace: '_', ' ' }}</span><span class="d"><span class="k">Page.</span> Not yet described. File name: <code>{{ file.name }}</code></span></a></li>
+{% endif %}{% endfor %}    </ul>
+  </section>
+
+  <p class="tips">Tips for slide decks: use the arrow keys or the on-screen arrows to move between slides, press M for the menu, and press F for full screen. On a phone, open the menu and choose Study view to read every slide on one page.</p>
 </main>
+<script>
+(function(){
+  var sec=document.getElementById('unsorted-sec'),list=document.getElementById('unsorted-list');
+  if(!sec||!list)return;
+  function path(h){try{return decodeURIComponent(new URL(h,location.href).pathname);}catch(e){return h;}}
+  var sorted={};
+  [].forEach.call(document.querySelectorAll('#modules a'),function(a){sorted[path(a.getAttribute('href'))]=true;});
+  [].slice.call(list.querySelectorAll('li')).forEach(function(li){
+    var a=li.querySelector('a');
+    if(sorted[path(a.getAttribute('href'))]){li.remove();return;}
+    fetch(a.getAttribute('href')).then(function(r){return r.text();}).then(function(t){
+      var title=new DOMParser().parseFromString(t,'text/html').title;
+      if(title&&title.trim()){li.querySelector('.t').textContent=title.trim();}
+    }).catch(function(){});
+  });
+  if(!list.querySelector('li')){sec.hidden=true;}
+})();
+</script>
 </body>
 </html>
