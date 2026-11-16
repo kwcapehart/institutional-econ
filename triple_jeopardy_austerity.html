@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102448">
+<title>Triple Jeopardy: Women &amp; Austerity — Classroom Game</title>
+<style>
+:root{color-scheme:light;--navy:#13284c;--navy2:#0a1b39;--blue:#1a3f79;--gold:#f6d889;--cream:#fffaf0;--red:#c41230;--muted:#a9bbd3;--ink:#162239}
+*{box-sizing:border-box}html{min-height:100%}body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:#f5f7fc;background:radial-gradient(ellipse at 50% -25%,#244c84 0%,var(--navy) 40%,var(--navy2) 100%)}
+button{font:inherit;cursor:pointer}button:focus-visible{outline:4px solid #ffdd63;outline-offset:4px}button:disabled{cursor:default}
+.shell{width:min(1220px,calc(100% - 44px));margin:0 auto;padding:32px 0 28px}
+.topline{height:5px;width:86px;background:var(--red);border-radius:9px;margin-bottom:17px}
+header{text-align:center}header .topline{margin:0 auto 15px}h1{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:clamp(2.5rem,5vw,4.35rem);line-height:1.05;letter-spacing:.025em;margin:0;color:#fff}h1 em{font-style:normal;color:var(--gold)}.subtitle{font-size:clamp(1rem,2vw,1.22rem);margin:10px auto 0;color:#cfdbec}
+.intro{margin:30px 0 19px;display:flex;align-items:end;justify-content:space-between;gap:20px}.intro p{margin:0;line-height:1.6;color:#dce5f3;font-size:1.06rem}.toolbar{display:flex;align-items:center;gap:14px;flex-shrink:0}.count{font-size:.88rem;font-weight:700;letter-spacing:.04em;color:#f8dda0;white-space:nowrap}.reset{padding:10px 14px;border:1px solid #8fa2c0;border-radius:8px;color:white;background:transparent;font-weight:600}.reset:hover{background:#ffffff1b}
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.category{display:grid;grid-template-rows:minmax(101px,auto) repeat(4,minmax(115px,1fr));gap:11px;min-width:0}.catname{border:1px solid #7b99c6;background:#19365f;padding:17px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:inset 0 3px 0 var(--red)}.catname .kicker{font-size:.74rem;font-weight:bold;letter-spacing:.12em;text-transform:uppercase;color:#e1b9c3;margin:0 0 7px}.catname h2{font-size:clamp(.92rem,1.55vw,1.3rem);text-transform:uppercase;letter-spacing:.035em;line-height:1.25;margin:0;color:#fff}
+.tile{border:1px solid #728bb2;background:#183e79;color:var(--gold);border-radius:2px;min-height:113px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;box-shadow:inset 0 1px 0 #ffffff17,0 3px 0 #091a34;transition:transform .14s,background .14s}.tile:hover{background:#235399;transform:translateY(-2px)}.tile .points{font-size:clamp(1.9rem,4vw,3.3rem);font-weight:900;letter-spacing:.025em;text-shadow:2px 3px 0 #0d2447}.tile .reviewed{display:none;font-size:.76rem;color:#d9e5f3;font-weight:600}.tile.done{background:#172e52;color:#bac6d8}.tile.done .points{opacity:.63}.tile.done .reviewed{display:inline}.tile.done:hover{background:#25416a}
+.footer{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;margin-top:23px;border-top:1px solid #647c9e;padding-top:15px;color:#c6d3e5;font-size:.85rem;line-height:1.6}.footer p{margin:0}.footer .detail{max-width:660px}.footer .legend{white-space:nowrap;color:#ecd59d}
+.overlay[hidden]{display:none}.overlay{position:fixed;z-index:50;inset:0;background:rgba(3,10,24,.83);padding:25px;display:grid;place-items:center;overflow:auto;overscroll-behavior:contain}
+.modal{background:var(--cream);border:4px solid #f0dba8;color:var(--ink);width:min(810px,100%);max-height:min(90vh,900px);overflow-y:auto;border-radius:9px;box-shadow:0 30px 100px #0007;position:relative;padding:clamp(25px,4vw,51px)}.close{position:absolute;right:16px;top:14px;width:39px;height:39px;background:transparent;border:1px solid #cbd0da;border-radius:50%;color:#26374f;font-size:1.4rem;line-height:1}.close:hover{background:#ebe8e2}
+.modal-top{display:flex;gap:10px;align-items:center;margin-bottom:27px;padding-right:35px;flex-wrap:wrap}.modal-category{text-transform:uppercase;font-size:.8rem;font-weight:800;letter-spacing:.1em;color:#8b2436}.modal-points{font-size:.78rem;font-weight:800;border-radius:5px;background:var(--navy);color:var(--gold);padding:6px 10px}.modal h3{font-size:clamp(1.45rem,3.3vw,2.25rem);font-family:Georgia,'Times New Roman',serif;line-height:1.34;margin:0 0 29px;color:#162844}.answer-area[hidden]{display:none}.answer-area{border-top:2px solid #e2d6bd;margin-top:20px;padding-top:23px}.answer-label{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:#99233e;font-weight:900;margin:0 0 13px}.answer-text{font-size:clamp(1.02rem,2vw,1.2rem);line-height:1.62;margin:0 0 17px}.source-quote{border-left:5px solid var(--red);background:#f3eee3;padding:15px 19px;margin:18px 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1rem,2vw,1.17rem);line-height:1.53}.source-line{color:#556176;font-size:.8rem;margin:9px 0 0}.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:27px}.primary{border:0;border-radius:6px;background:var(--red);color:#fff;font-weight:800;font-size:1rem;padding:14px 22px}.primary:hover{background:#9f0924}.secondary{border:1px solid #758097;background:transparent;border-radius:6px;color:var(--ink);font-weight:700;padding:13px 17px}.secondary:hover{background:#ecebe6}.modal[aria-busy="true"]{opacity:.6}
+@media(max-width:820px){.board{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.category{gap:8px;grid-template-rows:82px repeat(4,minmax(82px,1fr))}.catname h2{font-size:1rem}.tile{min-height:85px}.tile .points{font-size:2.45rem}.intro{align-items:flex-start}.footer{flex-direction:column;gap:8px}.footer .legend{white-space:normal}}
+@media(max-width:510px){.shell{width:min(100% - 24px,560px);padding-top:21px}.intro{flex-direction:column;gap:12px;margin-top:23px}.toolbar{width:100%;justify-content:space-between}.board{gap:7px}.category{gap:6px;grid-template-rows:90px repeat(4,78px)}.catname{padding:11px 6px}.catname h2{font-size:.86rem}.catname .kicker{font-size:.64rem}.tile{min-height:77px}.tile .points{font-size:2rem}.modal{padding:22px 19px 26px}.overlay{padding:10px}.modal-top{margin-bottom:21px}}
+@media(prefers-reduced-motion:reduce){.tile{transition:none}}
+@media print{body{background:#fff;color:#111}.shell{width:100%}.board{gap:6px}.catname,.tile{box-shadow:none}.intro p,.subtitle,.footer,.count{color:#222}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header>
+<div class="topline" aria-hidden="true"></div>
+<h1>TRIPLE <em>JEOPARDY</em></h1>
+<p class="subtitle">Women and austerity · Based on Diane Perrons (2021)</p>
+</header>
+<div class="intro">
+<p>Choose a point value to open a question. Discuss it, then reveal the best answer.</p>
+<div class="toolbar"><span id="counter" class="count" role="status" aria-live="polite">0 / 16 revealed</span><button class="reset" id="reset" type="button">Reset board</button></div>
+</div>
+<section class="board" id="board" aria-label="Triple Jeopardy question board"></section>
+<footer class="footer">
+<p class="detail">Source: Diane Perrons, <i>Is Austerity Gendered?</i> (2021), Chapter 2, as reproduced in the course's edited reading excerpt. Quotations appear in quotation marks; other answer text summarizes the excerpt. Historical figures refer to the periods described in the reading, not to the present day.</p>
+<p class="legend">16 questions · 4 categories</p>
+</footer>
+</main>
+<div class="overlay" id="overlay" hidden>
+<section class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="question-heading" aria-describedby="modal-context" tabindex="-1">
+<button class="close" id="close" type="button" aria-label="Close and return to board">×</button>
+<div class="modal-top"><span class="modal-category" id="modal-context"></span><span class="modal-points" id="modal-points"></span></div>
+<h3 id="question-heading"></h3>
+<div class="answer-area" id="answer-area" hidden>
+<p class="answer-label">Best answer</p>
+<p class="answer-text" id="answer-text"></p>
+<blockquote class="source-quote" id="source-quote"></blockquote>
+<p class="source-line" id="source-line"></p>
+</div>
+<div class="actions"><button class="primary" id="reveal" type="button">Reveal best answer</button><button class="secondary" id="back" type="button">Back to board</button></div>
+</section>
+</div>
+<script>
+'use strict';
+const categories=[
+  {id:'jobs',eyebrow:'First jeopardy',name:'Jobs & pay',questions:[
+    {points:100,question:'Why do cuts to public-sector employment tend to hit women especially hard?',answer:'Women make up a greater share of public-sector workers than of workers overall. Perrons reports that in OECD countries women were 58% of the public-sector workforce, compared with 45.3% of the overall workforce.',quote:'women’s share of public sector employment generally exceeds their share of total employment',source:'Perrons, Chapter 2, excerpt p. 3'},
+    {points:200,question:'In the United Kingdom, which part of public employment was cut particularly sharply, and why did that matter for women?',answer:'Local-authority jobs were cut by 30% between 2010 and 2018, compared with 11% across the public sector. Local authorities include social care and teaching, where women were particularly overrepresented.',quote:'local authority employment has been cut by 30 percent, and this includes social care and teachers',source:'Perrons, Chapter 2, excerpt p. 3'},
+    {points:300,question:'Apart from job losses, how did austerity affect public-sector employees’ pay?',answer:'Governments reduced pay directly, froze wages, or changed pay systems so that workers’ purchasing power fell. Perrons gives a 40% loss of purchasing power for public-sector workers in Greece and 9% for teachers in the UK.',quote:'Public sector pay was also cut, either directly, through pay freezes, or indirectly',source:'Perrons, Chapter 2, excerpt p. 3'},
+    {points:400,question:'What were some ways remaining public-sector workers tried to cope with reduced staffing and resources?',answer:'Workers faced heavier workloads and insecure conditions. Some covered unmet needs by doing unpaid overtime or spending their own money; Perrons describes UK teachers buying classroom supplies and necessities for pupils.',quote:'many public sector workers do unpaid overtime and use their own money to mitigate shortfalls',source:'Perrons, Chapter 2, excerpt p. 3'}
+  ]},
+  {id:'services',eyebrow:'Second jeopardy',name:'Public services',questions:[
+    {points:100,question:'Why is cutting the cost of public care services likely to reduce their quality?',answer:'Care, education, and health services require substantial human time and attention. Providers cannot simply serve ever more people per worker without consequences for service quality.',quote:'many public services are highly labour-intensive, which means that it is difficult to reduce costs without reducing quality simultaneously',source:'Perrons, Chapter 2, excerpt p. 4'},
+    {points:200,question:'What does Perrons’s string-quartet analogy help explain about care work?',answer:'A quartet needs time to play a piece well; speeding it up might reduce time but worsen the result. Likewise, caring relationships cannot simply be sped up like a factory production process.',quote:'How would you increase the productivity of a string quartet, as it will always take the same amount of time to play?',source:'Perrons, Chapter 2, excerpt p. 4'},
+    {points:300,question:'Why might cuts to the UK’s Sure Start programme fail to save money in the long run?',answer:'Sure Start provided early-childhood health, education, and childcare services. Perrons reports that the centres reduced children’s later hospitalizations, especially in disadvantaged neighborhoods, which also saved money for the National Health Service.',quote:'the activity of Sure Start centres led to a significant reduction in the hospitalisation of children later on',source:'Perrons, Chapter 2, excerpt p. 5'},
+    {points:400,question:'What does Perrons report about austerity’s effect on services for survivors of violence against women?',answer:'Such services were cut even though the need remained severe. In Brazil, support for survivors of sexual or domestic violence was cut by 15%. In the UK, specialist refuges declined 17% from 2010 to 2020, and 60% of women seeking support could not be housed.',quote:'60 percent of the women who sought support were unable to be housed',source:'Perrons, Chapter 2, excerpt p. 6'}
+  ]},
+  {id:'protection',eyebrow:'Third jeopardy',name:'Social protection',questions:[
+    {points:100,question:'What does Perrons mean by “social protection,” and how does austerity threaten it?',answer:'Social protection refers to safety nets for people with little or no means to support themselves. Austerity can eliminate, reduce, or freeze these protections at the very time that jobs and services are also being cut.',quote:'cuts to safety nets that support people who otherwise have little or no means of securing their livelihoods',source:'Perrons, Chapter 2, excerpt p. 6'},
+    {points:200,question:'What happened to Brazil’s Bolsa Verde and Bolsa Familia programmes, and why was that particularly significant for women?',answer:'Bolsa Verde, whose recipients were 88% women, was eliminated. Bolsa Familia, whose recipients were 93% women, was reduced by 10% between 2014 and 2017. These cash-payment programmes disproportionately supported women.',quote:'Bolsa Verde, 88 percent of which was paid to women in rural regions in return for protecting the environment, was cut altogether',source:'Perrons, Chapter 2, excerpt p. 6'},
+    {points:300,question:'What feature of the UK’s Universal Credit system undermined women’s financial independence?',answer:'In the system Perrons describes, a household payment went only to the main earner. In heterosexual couples, that tended to disadvantage the second earner, often the woman, reducing her direct access to money.',quote:'payment was made only to the main earner',source:'Perrons, Chapter 2, excerpt p. 7'},
+    {points:400,question:'Which groups of women were hit especially hard by UK cuts to taxes and benefits?',answer:'The biggest losses fell on those least able to absorb them: low-income women, lone parents, and Black, Asian, and minority ethnic (BAME) women. In Perrons’s comparison, low-income BAME women lost twice as much money as low-income white men.',quote:'when compared to low-income white men, low-income BAME women lost twice as much money',source:'Perrons, Chapter 2, excerpt p. 7'}
+  ]},
+  {id:'together',eyebrow:'The bigger picture',name:'Putting it together',questions:[
+    {points:100,question:'What are the three parts of austerity’s “triple jeopardy” for women?',answer:'Women disproportionately lose (1) public-sector jobs, pay, and working conditions; (2) public services; and (3) social protection. These harms reflect differences in women’s and men’s economic and social roles and the policies that overlook those differences.',quote:'Women lose more jobs, more services, and more social protection than men',source:'Perrons, Chapter 2, excerpt p. 2'},
+    {points:200,question:'What does it mean that women are left “filling the gaps” when state services are withdrawn?',answer:'When services are cut, some tasks still have to be done. Women frequently absorb the shortfall through additional unpaid household and care work. The excerpt credits the “filling the gaps” formulation to Fawcett (2012).',quote:'Women will be left ‘filling the gaps’ as state services are withdrawn',source:'Fawcett (2012), quoted in the editor’s note to Perrons, excerpt p. 2'},
+    {points:300,question:'Why does Perrons argue that the three kinds of cuts are cumulative rather than separate?',answer:'Losing a job or pay makes it harder to cope with reduced public services, while shrinking safety nets provide less support. These losses compound one another and can shift still more work onto women without pay.',quote:'The impact of reductions in public sector employment and services is intensified by losses in social protection',source:'Perrons, Chapter 2, excerpt p. 6'},
+    {points:400,question:'What does Perrons mean by “retrogression” in her discussion of austerity and human rights?',answer:'A state may move backward in people’s rights and access to essential resources despite having alternatives and resources available. Perrons argues that human-rights obligations require prioritizing the most deprived and using available resources toward human well-being.',quote:'they move backwards, in terms of rights and resources, from an existing situation – and they do so when alternatives exist',source:'Perrons, Chapter 2, excerpt p. 8'}
+  ]}
+];
+const board=document.getElementById('board');
+const overlay=document.getElementById('overlay');
+const answerArea=document.getElementById('answer-area');
+const reveal=document.getElementById('reveal');
+const counter=document.getElementById('counter');
+const close=document.getElementById('close');
+const back=document.getElementById('back');
+const done=new Set();
+let current=null,returnFocus=null;
+const total=categories.reduce((n,c)=>n+c.questions.length,0);
+function keyFor(catIndex,qIndex){return `${catIndex}-${qIndex}`}
+function drawBoard(){
+  board.replaceChildren();
+  categories.forEach((c,ci)=>{
+    const col=document.createElement('div');col.className='category';
+    const heading=document.createElement('div');heading.className='catname';
+    const kicker=document.createElement('p');kicker.className='kicker';kicker.textContent=c.eyebrow;
+    const title=document.createElement('h2');title.textContent=c.name;
+    heading.append(kicker,title);col.append(heading);
+    c.questions.forEach((q,qi)=>{
+      const tile=document.createElement('button');tile.type='button';tile.className='tile';
+      tile.dataset.key=keyFor(ci,qi);
+      tile.setAttribute('aria-label',`${c.eyebrow}: ${c.name}, ${q.points} points`);
+      const pts=document.createElement('span');pts.className='points';pts.textContent=q.points;
+      const marked=document.createElement('span');marked.className='reviewed';marked.textContent='✓ REVEALED';
+      tile.append(pts,marked);
+      tile.addEventListener('click',()=>openQuestion(ci,qi,tile));col.append(tile);
+    });
+    board.append(col);
+  });
+  updateBoard();
+}
+function updateBoard(){
+  counter.textContent=`${done.size} / ${total} revealed`;
+  document.querySelectorAll('.tile').forEach(tile=>{
+    const isDone=done.has(tile.dataset.key);
+    tile.classList.toggle('done',isDone);
+    tile.setAttribute('aria-label',tile.getAttribute('aria-label').replace(/, revealed$/, '')+(isDone?', revealed':''));
+  });
+}
+function openQuestion(ci,qi,tile){
+  current={ci,qi};returnFocus=tile;
+  const c=categories[ci],q=c.questions[qi];
+  document.getElementById('modal-context').textContent=`${c.eyebrow} · ${c.name}`;
+  document.getElementById('modal-points').textContent=`${q.points} points`;
+  document.getElementById('question-heading').textContent=q.question;
+  document.getElementById('answer-text').textContent=q.answer;
+  document.getElementById('source-quote').textContent=`“${q.quote}”`;
+  document.getElementById('source-line').textContent=q.source;
+  answerArea.hidden=true;reveal.hidden=false;
+  overlay.hidden=false;document.body.style.overflow='hidden';
+  reveal.focus();
+}
+function revealAnswer(){
+  if(!current)return;
+  answerArea.hidden=false;reveal.hidden=true;
+  done.add(keyFor(current.ci,current.qi));updateBoard();
+  back.focus();
+}
+function closeQuestion(){
+  overlay.hidden=true;document.body.style.overflow='';current=null;
+  if(returnFocus&&returnFocus.isConnected)returnFocus.focus();
+}
+reveal.addEventListener('click',revealAnswer);
+close.addEventListener('click',closeQuestion);
+back.addEventListener('click',closeQuestion);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeQuestion()});
+document.getElementById('reset').addEventListener('click',()=>{done.clear();updateBoard()});
+document.addEventListener('keydown',e=>{
+  if(overlay.hidden)return;
+  if(e.key==='Escape'){e.preventDefault();closeQuestion();return}
+  if(e.key==='Tab'){
+    const focusables=[close,...(!reveal.hidden?[reveal]:[]),back];
+    const first=focusables[0],last=focusables[focusables.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+  }
+});
+drawBoard();
+</script>
+</body>
+</html>
